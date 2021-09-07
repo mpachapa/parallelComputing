@@ -5,7 +5,7 @@ int main () {
   hostname[255] = '\0';
   gethostname(hostname, 255);
   std::cout<<"Hostname: "<<hostname<<"\n";
-  std::string s = "hello world\n";
+  std::string s = "Hello world\n";
   std::cout<<s;
   
   return 0;
