@@ -73,9 +73,23 @@ int main(int argc, char **argv)
   MyHashtable<std::string, int> ht;
   Dictionary<std::string, int>& dict = ht;
 
-
-
+  int word = 0;
+  char ch = 'z';
+  int loop = 0;
   // write code here
+  std::cout<<"open "<<in.is_open();
+  while(in.is_open()){
+  	loop++; std::cout<<"loop: "<<loop<<"\n";
+	in.get(ch);
+	if (ch==' '|| ch=='\n')
+		word++;
+	std::cout<<"ate "<<in.ate;
+	if (loop == in.ate)
+		in.close();
+  }  
+  std::cout<<"the word count is " << word <<"\n";
+
+
 
 
 
@@ -87,7 +101,8 @@ int main(int argc, char **argv)
 
 
   // Check Hash Table Values 
-  /* (you can uncomment, but this must be commented out for tests)
+  
+/* (you can uncomment, but this must be commented out for tests)
   for (auto it : dict) {
     if (it.second > thresholdCount)
       std::cout << it.first << " " << it.second << std::endl;
