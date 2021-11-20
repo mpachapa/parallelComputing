@@ -1,10 +1,17 @@
 #include <chrono>
 #include <fstream>
 #include <sstream>
-#include <vector>
+#include <vector> 
+#include <thread>
+#include <chrono>
 
 #include "Dictionary.cpp"
 #include "MyHashtable.cpp"
+
+//thread function
+void doingWork () {
+	std::cout<<"work";
+}
 
 //Tokenize a string into individual word, removing punctuation at the
 //end of words
@@ -46,13 +53,14 @@ std::vector<std::vector<std::string>> tokenizeLyrics(const std::vector<std::stri
 }
 
 
-
 int main(int argc, char **argv)
 {
   if (argc < 4) {
     std::cerr<<"usage: ./main <sources> <testword> <threshold>"<<std::endl;
     return -1;
   }
+  //starting timer
+  auto start = std::chrono::system_clock::now();
 
   // Parse Command Line
   std::string source = argv[1];
@@ -73,28 +81,20 @@ int main(int argc, char **argv)
   MyHashtable<std::string, int> ht;
   Dictionary<std::string, int>& dict = ht;
 
-  int word = 0;
-  char ch = 'z';
-  int loop = 0;
   // write code here
-  std::cout<<"open "<<in.is_open();
-  while(in.is_open()){
-  	loop++; std::cout<<"loop: "<<loop<<"\n";
-	in.get(ch);
-	if (ch==' '|| ch=='\n')
+  int word = 1;
+  for(int i = 0; i < wordmap.size(); i++){
+	std::thread t1(doingWork);	
+	for(int j = 0; j < wordmap[i].size(); j++){	
+ 		//std::cout<< wordmap[i][j] << " ";
 		word++;
-	std::cout<<"ate "<<in.ate;
-	if (loop == in.ate)
-		in.close();
-  }  
-  std::cout<<"the word count is " << word <<"\n";
-
-
-
-
-
-
-
+	}
+	t1.join();
+	std::cout<<"the count for word is "<< word <<"\n";
+  }	
+// whatever proper mutex placement means
+// make plots
+// answer final question in a readable file
 
 
 
@@ -109,8 +109,17 @@ int main(int argc, char **argv)
   }
   */
 
+  //ending timer
+  auto stop = std::chrono::system_clock::now();  
+  auto tTime = std::chrono::duration_cast<std::chrono::duration<double>>(stop - start).count();
+  	//Printing of time elapsed
+	float totalTime = tTime;
+  	std::cerr<<totalTime;
+
   // Do not touch this, need for test cases
   std::cout << ht.get(testWord) << std::endl;
 
+
   return 0;
 }
+
