@@ -1,19 +1,22 @@
-CXX=mpicxx
-CC=mpicxx
-LD=mpicxx
-
-all: hello
-
-run: hello
-	mpirun -np 1 ./hello
-
-bench: hello
-	./queue.sh
+CXX=mpic++
+LD=mpic++
 
 
-clean:
-	-rm *.o
-	-rm hello
+hello:
 
-distclean:
-	rm *.out
+hellowait:
+
+run128: hello
+	mpirun -np 128 --oversubscribe ./hello
+
+run8: hello
+	mpirun -np 8 --oversubscribe ./hello
+
+run4: hello
+	mpirun -np 4 ./hello
+
+run4log: hello
+	mpirun -np 4 --output-filename something ./hello
+
+runwait4log: hellowait
+	mpirun -np 4 --output-filename something ./hellowait
