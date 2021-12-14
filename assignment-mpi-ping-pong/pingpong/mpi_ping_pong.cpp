@@ -9,7 +9,9 @@ int main (int argc, char* argv[]) {
   }
 	MPI_Init(&argc,&argv);
 	// Find out rank, size
+	int worldrank;
 	MPI_Comm_rank(MPI_COMM_WORLD, &worldrank);
+	int worldsize;	
 	MPI_Comm_size(MPI_COMM_WORLD, &worldsize);
 
 	int number;
