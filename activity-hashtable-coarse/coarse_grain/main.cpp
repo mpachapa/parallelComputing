@@ -84,10 +84,14 @@ int main(int argc, char **argv)
   // write code here
   int word = 1;
   for(int i = 0; i < wordmap.size(); i++){
-	std::thread t1(doingWork);	
-	for(int j = 0; j < wordmap[i].size(); j++){	
- 		//std::cout<< wordmap[i][j] << " ";
-		word++;
+	std::thread t1(doingWork);
+	for(int j = 0; j < wordmap[i].size(); j++){
+		//ht.get(wordmap[i][j]);	
+		std::string temp = wordmap[i][j];	
+		if(temp == ht.get(temp))
+			word++;
+			else
+				ht.set(temp,1)
 	}
 	t1.join();
 	std::cout<<"the count for word is "<< word <<"\n";
@@ -115,6 +119,7 @@ int main(int argc, char **argv)
   	//Printing of time elapsed
 	float totalTime = tTime;
   	std::cerr<<totalTime;
+	std::cout<<totalTime;
 
   // Do not touch this, need for test cases
   std::cout << ht.get(testWord) << std::endl;
