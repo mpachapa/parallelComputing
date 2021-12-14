@@ -19,7 +19,7 @@ int main (int argc, char* argv[]) {
     		number = atoi(argv[0]);
 		std::cout<<number<<"\n";
     		MPI_Send(&number, 1, MPI_INT, 1, 0, MPI_COMM_WORLD);
-	} else if (worldrank == 1) {
+	} else {
     		MPI_Recv(&number, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 		number +=2;
 		MPI_Send(&number, 1, MPI_INT, 0, 0, MPI_COMM_WORLD);
