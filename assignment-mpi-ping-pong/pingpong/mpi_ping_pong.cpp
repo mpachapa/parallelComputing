@@ -18,13 +18,13 @@ int main (int argc, char* argv[]) {
 	int number;
 	if (worldrank == 0) {
     		number = atoi(argv[0]);
-    		MPI_Send(&number, 1, MPI_INT, 1, 0, MPI_COMM_WORLD);
+    		MPI_Send(&number, 1, MPI_INT, 1, 345, MPI_COMM_WORLD);
 	} else {
-    		MPI_Recv(&number, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+    		MPI_Recv(&number, 1, MPI_INT, 0, 345, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 		number++; number++;
-		MPI_Send(&number, 1, MPI_INT, 0, 0, MPI_COMM_WORLD);
+		MPI_Send(&number, 1, MPI_INT, 0, 789, MPI_COMM_WORLD);
     	}
-	MPI_Recv(&number, 1, MPI_INT, 1, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+	MPI_Recv(&number, 1, MPI_INT, 1, 789, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
   	std::cout<<number;
 
 	MPI_Finalize();
