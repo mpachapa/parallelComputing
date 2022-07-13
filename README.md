@@ -1,1 +1,1 @@
-# parcomp
+# parralelComputing
